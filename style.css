@@ -1,0 +1,45 @@
+body{
+	background-color: skyblue;
+}
+.container{
+	margin-top: 250px;
+	width:100%;
+	display: flex;
+	justify-content: space-between;
+	opacity: 0.6;
+}
+.player{
+	background-color: yellow;
+	padding:10%;
+}
+.Computer{
+	background-color:lightgreen;
+	padding:10%;
+}
+#versus{
+	background-color: orange;
+	padding: 10%;
+	padding-top: 15%;
+}
+a{
+	text-decoration:none;
+	font-size: 25px;
+	font-family:arial; 
+	font-weight: bold;
+    text-align:center;
+    margin-left:-10px; 
+	color:red;
+}
+a{
+	text-decoration:none;
+	font-size: 35px;
+	font-family:arial; 
+	font-weight: bold;
+    margin-left:-10px;
+    margin-top: 250px;
+    padding-top: 30%;
+	color:#FF00FF;
+}
+a:hover{
+	color:blue;
+}
