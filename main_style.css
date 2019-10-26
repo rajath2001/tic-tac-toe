@@ -1,16 +1,35 @@
+body{
+  background-color: #90BEDE;
+}
 .tic_box {
   width: 10%;
   height: 15%;
-  margin: 10px;
-  background-color: darkturquoise;
-  border: 2px;
   position: absolute;
-  font-size: 40px;
+  font-size: 70px;
   vertical-align: middle;
   text-align: center;
+  padding-top:20px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #F3E8EE;
+  border-collapse: collapse;
+  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
+  
+  
+   
 }
 
 #heading {
   text-align: center;
+  color: #477998;
+  padding-top: 20px;
   font-size: 40px;
+}
+#restart{
+  position: absolute;
+  top:80%;
+  left:45%;
+  color:blueviolet;
 }

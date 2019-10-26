@@ -10,14 +10,13 @@
 </head>
 
 <body>
-  <h1 id="heading"><b><u>TIC-TAC-TOE</u></b></h1>
+  <h1 id="heading"><b>TIC-TAC-TOE</b></h1>
   <div id="container"></div>
+  <a href="game.html"><h1 id="restart">Restart Game</h1></a>
   <script>
     var container = document.getElementById('container');
     var x = 0;
     var turn = 0;
-    var top = 20;
-    var box3;
     var board = [
       ['_', '_', '_'],
       ['_', '_', '_'],
@@ -27,7 +26,8 @@
     var computer = "O";
 
 
-
+    // to check if it is a tie
+    // return true if move is left false if move is not left
     function isMovesLeft(board) {
       for (var i = 0; i < 3; i++)
         for (var j = 0; j < 3; j++)
@@ -35,15 +35,14 @@
             return true;
       return false;
     }
-
+    // when player clicks it draws
     function draw(evt) {
-
-
-      var box_number = evt.target.par;
+      var box_number = evt.target.par; // gets the id of the box clicked
       
       var i = 1;
       var row = 1,
-        column = 1;
+      column = 1;
+      // to find the row and coulmn of box
       for (i = 1; i <= 3; i++) {
         if (box_number - 3 * i > 0) {
           row += 1
@@ -83,7 +82,6 @@
 
 
     //check win
-    // convert 1-9 into x,y coordinates
     var score;
     var depth;
     var isMax = true;
@@ -96,7 +94,7 @@
       return true
     }
 
-
+    // state of the board if player wins 100 is returned if computer wins -100
     function state() {
       for (var row = 0; row < 3; row++) {
         if (board[row][0] == board[row][1] && board[row][1] == board[row][2]) {
@@ -159,7 +157,7 @@
             if (state() == -100) {
               var x = document.getElementById(i * 3 + j + 1);
               x.innerHTML = "O";
-              alert("Computer Wins");
+              alert("computer wins");
               console.log(i, j, "O");
               document.exit();
 
@@ -204,7 +202,7 @@
               document.exit();
         }
       // put it in the opposite corner
-    if (board[0][0] == "_" && (board[0][2] == player  || board[2][0] == player)) {
+    else if (board[0][0] == "_" && (board[0][2] == player  || board[2][0] == player)) {
       board[0][0]="O";
       document.getElementById(1).innerHTML="O";
       document.exit();
@@ -270,6 +268,7 @@
       document.getElementById(4).innerHTML="O";
       document.exit();
     }
+   
       
     }
 
@@ -289,21 +288,33 @@
       box.par = x;
       box.id = x;
       box.setAttribute("class", "tic_box");
+      if(x%3==1)
+      {
+        box.style.borderRight="10px solid #779CB7";
+      }
+       
+      if(x%3==0)
+      box.style.borderLeft="10px solid #779CB7";
+       
+
       if (x > 6 && x <= 9) {
-        box.style.top = "64%";
+        box.style.top = "55%";
+        box.style.borderTop="10px solid #779CB7";
       } else if (x > 3 && x <= 6) {
-        box.style.top = "47%";
+        box.style.top = "38%";
       } else if (x <= 3) {
-        box.style.top = "30%";
+        box.style.top = "20%";
+        box.style.borderBottom="10px solid #779CB7";
       }
       if (x % 3 == 1) {
-        box.style.left = "30%";
+
+        box.style.left = "35%";
       }
       if (x % 3 == 2) {
-        box.style.left = "42%";
+        box.style.left = "45%";
       }
       if (x % 3 == 0) {
-        box.style.left = "54%";
+        box.style.left = "55%";
       }
       container.appendChild(box);
 
