@@ -1,0 +1,16 @@
+.tic_box {
+  width: 10%;
+  height: 15%;
+  margin: 10px;
+  background-color: darkturquoise;
+  border: 2px;
+  position: absolute;
+  font-size: 40px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+#heading {
+  text-align: center;
+  font-size: 40px;
+}

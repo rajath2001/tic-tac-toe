@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="main_style.css">
+</head>
+
+<body>
+  <h1 id="heading"><b><u>TIC-TAC-TOE</u></b></h1>
+  <div id="container"></div>
+  <script>
+    var container = document.getElementById('container');
+    var x = 0;
+    var turn = 0;
+    var top = 20;
+    var box3;
+    var board = [
+      ['_', '_', '_'],
+      ['_', '_', '_'],
+      ['_', '_', '_']
+    ];
+    var player = "X";
+    var computer = "O";
+
+
+
+    function isMovesLeft(board) {
+      for (var i = 0; i < 3; i++)
+        for (var j = 0; j < 3; j++)
+          if (board[i][j] == '_')
+            return true;
+      return false;
+    }
+
+    function draw(evt) {
+
+
+      var box_number = evt.target.par;
+      
+      var i = 1;
+      var row = 1,
+        column = 1;
+      for (i = 1; i <= 3; i++) {
+        if (box_number - 3 * i > 0) {
+          row += 1
+        } else {
+          break;
+        }
+      }
+      column = ((box_number - (3 * (i - 1))) % 4);
+      if(board[row-1][column-1]=="_")
+      { console.log(board);
+        var box_tochange = document.getElementById(box_number);
+        box_tochange.innerHTML = "X";
+        board[row - 1][column - 1] = "X";
+        
+
+      var x = state();
+      if (x == 100) {
+        alert("player win");
+
+      }
+      else if(x==0)
+      {
+        alert("tie");
+        window.exit();
+      } else {
+        turn = 1;
+        console.log(board);
+        compmove();
+      }
+      }
+      else{
+        alert("already clicked");
+      }
+     
+
+    }
+
+
+    //check win
+    // convert 1-9 into x,y coordinates
+    var score;
+    var depth;
+    var isMax = true;
+
+    function isitdraw() {
+      for (var x = 0; x < 3; x++)
+        for (var j = 0; j < 3; j++)
+          if (board[x][j] == "_")
+            return false
+      return true
+    }
+
+
+    function state() {
+      for (var row = 0; row < 3; row++) {
+        if (board[row][0] == board[row][1] && board[row][1] == board[row][2]) {
+          if (board[row][0] == player)
+            return 100;
+          if (board[row][0] == computer)
+            return -100;
+
+        }
+      }
+
+      for (var col = 0; col < 3; col++) {
+        if (board[0][col] == board[1][col] && board[1][col] == board[2][col]) {
+          if (board[0][col] == player)
+            return 100;
+          if (board[0][col] == computer)
+            return -100;
+        }
+
+      }
+
+      if (board[0][0] == board[1][1] && board[1][1] == board[2][2]) {
+        if (board[0][0] == player)
+          return 100;
+        if (board[0][0] == computer)
+          return -100;
+
+      }
+
+      if (board[0][2] == board[1][1] && board[1][1] == board[2][0]) {
+        if (board[0][2] == player)
+          return 100;
+        if (board[0][2] == computer)
+          return -100;
+
+      }
+      if (isitdraw() == true)
+        return 0;
+      if (turn == 1) {
+        compmove();
+      }
+
+      return 50;
+
+
+    }
+
+    function compmove() {
+      turn = 0;
+
+      // Traverse all cells
+      // check if computer can win 
+      for (var i = 0; i < 3; i++) {
+        for (var j = 0; j < 3; j++) {
+          // Check if cell is empty
+          if (board[i][j] == '_') {
+            // Make the move
+            board[i][j] = computer;
+
+            if (state() == -100) {
+              var x = document.getElementById(i * 3 + j + 1);
+              x.innerHTML = "O";
+              console.log(i, j, "O");
+              document.exit();
+
+            }
+
+            // Undo the move
+            board[i][j] = '_';
+          }
+        }
+      }
+      // check if you can block a win
+      for (var i = 0; i < 3; i++) {
+        for (var j = 0; j < 3; j++) {
+          // Check if cell is empty
+          if (board[i][j] == '_') {
+            // Make the move
+            board[i][j] = player;
+            if (state() == 100) {
+              var x = document.getElementById(i * 3 + j + 1);
+              x.innerHTML = "O";
+              console.log(i, j, "Oplayer");
+              board[i][j] = computer;
+              document.exit();
+
+
+            }
+            board[i][j] = '_';
+
+          }
+
+        }
+      }
+      console.log(board);
+
+      // check if you can put in the centre 
+      if(board[1][1]=="_")
+        {
+          var x = document.getElementById(5);
+              x.innerHTML = "O";
+              console.log(1, 1, "Oplayer");
+              board[1][1] = computer;
+              document.exit();
+        }
+      // put it in the opposite corner
+    if (board[0][0] == "_" && (board[0][2] == player  || board[2][0] == player)) {
+      board[0][0]="O";
+      document.getElementById(1).innerHTML="O";
+      document.exit();
+      
+    }
+    else if (board[0][2] == "_" && (board[0][0] == player || board[2][0] ==player)) {
+      board[0][2]="O";
+      document.getElementById(3).innerHTML="O";
+      document.exit();
+      
+    }
+    else if (board[2][2] == "_" && (board[0][2] ==player || board[2][0] ==player)) {
+      board[2][2]="O";
+      document.getElementById(9).innerHTML="O";
+      document.exit();
+      
+    }
+    else if (board[2][0] == "_" && (board[0][0] ==player || board[2][2] == player)) {
+      board[2][0]="O";
+      document.getElementById(7).innerHTML="O";
+      document.exit();
+      
+    }
+    // put in the corner
+    else if (board[0][0] == "_") {
+      board[0][0]=computer;
+      document.getElementById(1).innerHTML="O";
+      document.exit();
+    }
+    else if (board[0][2] == "_") {
+     board[0][2]=computer;
+     document.getElementById(3).innerHTML="O";
+     document.exit();
+    }
+    else if (board[2][0] == "_") {
+      board[2][0]=computer;
+      document.getElementById(7).innerHTML="O";
+      document.exit();
+    }
+    else if (board[2][2] == "_") {
+      board[2][2]=computer;
+      document.getElementById(9).innerHTML="O";
+      document.exit();
+    }
+    // case 6: empty side
+    else if (board[0][1] == "_") {
+      board[0][1]=computer;
+      document.getElementById(2).innerHTML="O";
+      document.exit();
+    }
+    else if (board[1][2] == "_") {
+      board[1][2]=computer;
+      document.getElementById(6).innerHTML="O";
+      document.exit();
+    }
+    else if (board[2][1] == "_") {
+      board[2][1]=computer;
+      document.getElementById(8).innerHTML="O";
+      document.exit();
+    }
+    else if (board[1][0] == "_") {
+      board[1][0]=computer;
+      document.getElementById(4).innerHTML="O";
+      document.exit();
+    }
+      
+    }
+
+    
+
+
+
+
+
+
+
+
+    for (x = 1; x <= 9; x++) {
+
+      var box = document.createElement("div");
+      box.addEventListener("click", draw);
+      box.par = x;
+      box.id = x;
+      box.setAttribute("class", "tic_box");
+      if (x > 6 && x <= 9) {
+        box.style.top = "64%";
+      } else if (x > 3 && x <= 6) {
+        box.style.top = "47%";
+      } else if (x <= 3) {
+        box.style.top = "30%";
+      }
+      if (x % 3 == 1) {
+        box.style.left = "30%";
+      }
+      if (x % 3 == 2) {
+        box.style.left = "42%";
+      }
+      if (x % 3 == 0) {
+        box.style.left = "54%";
+      }
+      container.appendChild(box);
+
+
+    }
+  </script>
+</body>
+
+</html>
